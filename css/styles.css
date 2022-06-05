@@ -1,0 +1,421 @@
+:root {
+  --naked-background-color: #ffffff;
+  --theme-background-color: #fff1b0;
+  --theme-accent-color: #ffe677;
+  --theme-high-contrast-color: #ffd000;
+  --theme-accent-color-transparent: #fbd73045;
+  --reverse-theme-accent-color: #106ca0; /* Reverse theme: dark mode */
+  --banner-background-color: #009cd0;
+  --banner-text-color: #f9fbf8;
+  --text-color: #1b2636;
+  --code-block-background-color: #eee0a0;
+  --dimmed-text-color: #708090;
+  --anchor-color: #4242fa;
+  --footer-background-color: #666666;
+  --footer-text-color: #ffffff;
+  --footer-dimmed-text-color: #aaaaaa;
+  --footer-anchor-color: #fbd730;
+}
+
+:root[page-theme="dark"] {
+  --naked-background-color: #222222;
+  --theme-background-color: #334e68;
+  --theme-accent-color: #106ca0;
+  --theme-high-contrast-color: #009cd0;
+  --theme-accent-color-transparent: #106ca075;
+  --reverse-theme-accent-color: #ffe677;  /* Reverse theme: light mode */
+  --banner-background-color: #ffd000;
+  --banner-text-color: #1b2636;
+  --text-color: #f9fbf8;
+  --code-block-background-color: #223d57;
+  --dimmed-text-color: #afc3d8;
+  --anchor-color: #fbd730;
+  --footer-background-color: #aaaaaa;
+  --footer-text-color: #000000;
+  --footer-dimmed-text-color: #666666;
+  --footer-anchor-color: #4242fa;
+}
+
+html, body {
+  background: var(--theme-background-color);
+  overflow-x: hidden;
+  padding: 0px;
+  margin: 0px;
+  scroll-behavior: smooth;
+}
+
+/* No "span" here, otherwise e.g. color for .error_param will be overridden. */
+h1, h2, h3, h4, p, li, div {
+  color: var(--text-color);
+  font-family: 'Noto Serif', serif;
+}
+
+p, li {
+  font-size: 20px;
+  max-width: 650px;
+  line-height: 1.5em;
+  text-align: justify;
+}
+
+a {
+  color: var(--anchor-color);
+}
+
+div#page_top_banner {
+  display: none;
+  text-align: center;
+  color: var(--banner-text-color);
+  background-color: var(--banner-background-color);
+  font-size: 14px;
+  width: 100%;
+}
+
+section.main_content {
+  margin: 50px;
+  border: solid 15px var(--theme-accent-color-transparent);
+  padding: 75px 150px;
+  position: relative;
+  z-index: 1;
+}
+
+section.main_content svg {
+  position: absolute;
+  z-index: -1;
+  opacity: 50%;
+}
+
+section.main_content hr {
+  border: 1px solid var(--theme-accent-color);
+}
+
+section.main_content svg#qr_code {
+  height: 15%;
+  width: 15%;
+  right: 10px;
+  bottom: 10px;
+  fill: var(--theme-high-contrast-color);
+  opacity: 100%;
+}
+
+/* Do not put "@media (hover: hover) and (pointer: fine) {...}" around this,
+ * because we want the hover effect on touchscreens, despite the effect's
+ * stickiness (that is, user needs to touch elsewhere to cancel the effect) on
+ * touchscreens. */
+section.main_content svg#qr_code:hover {
+  fill: var(--text-color);
+  cursor: none;
+}
+
+section.main_content svg.motif.svg_solid {
+  stroke: none;
+  fill: var(--theme-accent-color);
+}
+
+section.main_content svg.motif.svg_outline {
+  stroke: var(--theme-accent-color);
+  fill: none;
+}
+
+section.main_content svg.motif#morse_left {
+  height: 500px;
+  left: 0px;
+  top: 320px;
+}
+
+section.main_content svg.motif#morse_topright {
+  transform: rotate(-90deg) scaleX(-1);
+  height: 500px;
+  right: 120px;
+  top: -112px;
+}
+
+section.main_content svg.motif#morse_right {
+  transform: scaleX(-1);
+  height: 500px;
+  right: -2px;
+  top: 1000px;
+}
+
+section.main_content span#full_dot {
+  font-size: 12px;
+  color: var(--theme-accent-color);
+  user-select: none;
+  cursor: pointer;
+  transition: color 20ms linear 20ms;
+}
+
+/* If the dot is placed directly under section.main_content, then add these. */
+section.main_content > span#full_dot {
+  position: absolute;
+  right: 10vw;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  section.main_content span#full_dot:hover {
+    color: var(--reverse-theme-accent-color);
+  }
+}
+
+section.main_content span#full_dot span#theme_toggle_hint {
+  display: none;
+  font-size: 8px;
+  font-weight: normal;
+  color: var(--dimmed-text-color);
+  padding-left: 2px;
+  user-select: none;
+}
+
+/* If the dot is placed directly under section.main_content, then add these. */
+section.main_content > span#full_dot span#theme_toggle_hint {
+  position: absolute;
+  right: 20px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  section.main_content span#full_dot:hover span#theme_toggle_hint {
+    display: inline-block;
+  }
+}
+
+section.main_content h1#big_title {
+  font-size: 120px;
+  max-width: 500px;
+  margin-top: 40px;
+}
+
+.nd_content {
+  display: none;
+}
+
+.init_param {
+  color: var(--dimmed-text-color);
+}
+
+.error_param {
+  color: #FFFFFF;
+  background-color: LightCoral;
+  border-radius: 10px;
+  padding: 5px;
+  text-decoration: underline dotted;
+}
+
+section.main_content div#base_license_body {
+  display: none;
+  font-size: small;
+  border: 2px dashed var(--theme-accent-color);
+}
+
+section.main_content h2.faq_title {
+  font-size: 72px;
+  position: relative;
+}
+
+section.main_content div#faq_section_list a {
+  color: var(--dimmed-text-color);
+  font-weight: normal;
+}
+
+section.main_content h3.faq_section_title {
+  margin-top: 60px;
+  font-size: 1.7em;
+  text-decoration: underline;
+  position: relative;
+}
+
+section.main_content h3.faq_ask {
+  margin-top: 40px;
+  max-width: 800px;
+  font-size: 1.5em;
+  position: relative;
+}
+
+a.page_anchor {
+  position: absolute;
+  left: -1.2em;
+  top: 0em;
+  color: var(--theme-high-contrast-color);
+  padding-left: 0.3em;
+  text-decoration: none;
+  font-weight: lighter;
+  scroll-margin-top: 2em; /* To prevent jumping too far and partially out of view */
+}
+
+a.page_anchor:target {
+  animation: blink_on_navigation 1s ease;
+}
+
+@keyframes blink_on_navigation {
+  0% {
+    background-color: var(--theme-high-contrast-color);
+    box-shadow: 0 0 10px 10px var(--theme-high-contrast-color);
+  }
+  100% { background-color: transparent; }
+}
+
+section.main_content p.faq_answer {
+  max-width: 800px;
+  text-align: left;
+}
+
+section.main_content pre {
+  max-width: 800px;
+  padding: 1em;
+  background-color: var(--code-block-background-color);
+}
+
+#link_to_license {
+  font-family: monospace;
+  text-decoration: none;
+  user-select: none;
+  margin-left: 0.5em;
+}
+
+.accordion#license_builder_button {
+  margin-left: calc(50% - 50vw);
+  width: 100vw;
+  background-color: var(--theme-background-color);
+  background: transparent;
+  color: #444;
+  cursor: pointer;
+  padding: 12px;
+  border: none;
+  text-align: center;
+  outline: none;
+  transition: 0.4s;
+  color: var(--text-color);
+  font-family: 'Noto Serif', serif;
+  font-size: 20px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .accordion#license_builder_button:hover,
+  .accordion#license_builder_button.button_active:hover {
+    background-color: var(--theme-high-contrast-color);
+  }
+}
+
+.accordion#license_builder_button.button_active {
+  background-color: var(--theme-accent-color);
+}
+
+.accordion_panel#license_builder_panel {
+  margin-left: calc(50% - 50vw);
+  width: 100vw;
+  background-color: var(--naked-background-color);
+  padding: 0 12px;
+  max-height: 0; /* To be toggled in JS. */
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  text-align: center;
+}
+
+.accordion_panel#license_builder_panel.panel_active {
+  border-top: dashed 1px var(--dimmed-text-color);
+  border-bottom: dashed 1px var(--dimmed-text-color);
+}
+
+.accordion_panel .accordion_penel_content {
+  margin: 1em 5em;
+}
+
+.accordion_panel .accordion_penel_content div {
+  display: inline-block;
+}
+
+.accordion_panel#license_builder_panel .license_url_span,
+.accordion_panel#license_builder_panel a#license_url {
+  color: var(--dimmed-text-color);
+  font-size: small;
+}
+
+pre {
+  margin-top: 0.5em;
+  padding-left: 1em;
+  font-size: 18px;
+  width: 70vw;
+  white-space: pre-wrap;
+  color: var(--text-color);
+}
+
+footer {
+  background: top left no-repeat var(--footer-background-color);
+  color: var(--footer-text-color);
+  text-align: center;
+}
+
+footer #footer_content {
+  color: var(--footer-text-color);
+  max-width: initial;
+  padding: 30px;
+  margin: 0px;
+  text-align: center;
+}
+
+footer #footer_content a {
+  color: var(--footer-anchor-color)
+}
+
+footer #footer_content .secondary {
+  color: var(--footer-dimmed-text-color);
+  font-size: small;
+}
+
+footer #footer_content .footer_inline_block {
+  display: inline-block;
+}
+
+footer #footer_content .secondary a {
+  color: var(--footer-dimmed-text-color);
+}
+
+@media only screen and (max-width: 1024px) {
+  section.main_content {
+    margin: 36px;
+    padding: 35px 70px;
+  }
+
+  section.main_content h1 {
+    font-size: 90px;
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  section.main_content {
+    margin: 24px;
+    padding: 24px 36px;
+  }
+
+  section.main_content h1#big_title {
+    font-size: 75px;
+    margin-top: 0px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  section.main_content {
+    margin: 12px;
+    padding: 24px 36px;
+    border-width: 8px;
+  }
+
+  section.main_content h1#big_title {
+    font-size: 48px;
+    margin-top: 0px;
+  }
+
+  p, li {
+    font-size: 16px;
+    max-width: 560px;
+  }
+
+  pre {
+    font-size: 12px;
+    max-width: 560px;
+  }
+
+  section.main_content svg.motif {
+    width: 75%;
+    height: 75%;
+  }
+}
